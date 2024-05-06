@@ -41,7 +41,8 @@ namespace _3._1_Clock_Class
 
         public string getTime()
         {
-            return _hour.Ticks + ":" + _minute.Ticks + ":" + _second.Ticks;
+            return $"{_hour.Ticks:00}:{_minute.Ticks:00}:{_second.Ticks:00}";
+            
         }
 
         public void reset()

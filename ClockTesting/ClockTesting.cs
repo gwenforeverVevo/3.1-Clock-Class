@@ -9,57 +9,37 @@ namespace ClockTesting
     [TestFixture]
     public class ClockTesting
     {
-        
-
         [Test]
-        public void Counter_Initialization_IsZero()
+        public void InitialiseClock()
         {
-            Counter count = new Counter("Test");
-            int getCount = count.Ticks;
-            ClassicAssert.AreEqual(0, getCount);
-            //NUnit.Framework.Assert.That(getCount, Is.EqualTo(0));
-
+            Clock clock = new Clock();
+            ClassicAssert.AreEqual("00:00:00", clock.getTime());
         }
-
         [Test]
-        public void Counter_Increment_AddsOneToCount()
+        public void TickClock()
         {
-            
-            Counter counter = new Counter("TestCounter");
-            counter.increment();
-            int count = counter.Ticks;
-            ClassicAssert.AreEqual(1, count);
+            Clock clock = new Clock();
+            clock.tick();
+            ClassicAssert.AreEqual("00:00:01", clock.getTime());
         }
-
         [Test]
-        public void Counter_MultipleIncrement_IncreasesCountToMatch()
+        public void TickingClock()
         {
-        
-            Counter counter = new Counter("TestCounter");
-
-       
-            counter.increment();
-            counter.increment();
-            counter.increment();
-            int count = counter.Ticks;
-
-       
-            ClassicAssert.AreEqual(3, count);
+            Clock clock = new Clock();
+            for (int i = 0; i < 3665; i++) // 1 hour, 1 minute, 5 seconds
+            {
+                clock.tick();
+            }
+            ClassicAssert.AreEqual("01:01:05", clock.getTime());
         }
-
         [Test]
-        public void Counter_ResettingTimer_SetsCountToZero()
+        public void Reset()
         {
-       
-            Counter counter = new Counter("TestCounter");
-
-     
-            counter.increment();
-            counter.reset();
-            int count = counter.Ticks;
-
-
-            ClassicAssert.AreEqual(0, count);
+            Clock clock = new Clock();
+            clock.tick();
+            clock.reset();
+            ClassicAssert.AreEqual("00:00:00", clock.getTime());
         }
-    }   
+    }
+
 }
